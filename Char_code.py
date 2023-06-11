@@ -17,7 +17,7 @@ class Character:
         target.health = target.health - damage_dealt
         print(f"{self.name} attacked {target.name} and dealt {damage_dealt} damage")
         if damage_dealt <= 0:
-           damage_dealt == 0
+           damage_dealt = 0
 
         if target.health <= 0:
             print(f"{target.name} has been defeated")
@@ -38,29 +38,26 @@ class Character:
         self.damage += 5
         self.xp = 0
         print(f"{self.name}leveled up!level {self.level}reached.")
-        print(f"{self.name}'s health increased to {self.health} and damage increased to {self.damage}")
+        print(f"{self.name}'s health increased to {self.health} and damage increased to {self.damage}")        
     
     
 class monster:
      
-    def __init__(self , name , health , damage ,evansion_chance):
+    def __init__(self , name , health , damage ,evade_attack):
         super().__init__(name,health,damage)
-        self.evansion_chance = evansion_chance
+        self.evade_attack = evade_attack
     def evade_attack(self):
-        if random.random() < self.evansion_chance:
+        if random.random() < self.evade_attack:
             print(f"{self.name} evaded the attack!")
             return True
         else:
             return False
 
     def attack(self,target):
-        if self.evasion_attack:
+        if self.evade_attack:
             return
         super().attack(target)
     
-
-
-
 #valid player name
 
 def validate_name(name):
@@ -90,13 +87,10 @@ while player.health > 0 and monster.health > 0:
     monster.attack(player)
     player.attack(monster)
     
+    
     if player.health > 0 and monster.health > 0:
         print(f"enemy health = {monster.health}")
         print(f"Your health = {player.health}")
-        
-    #the monster retaliates with an attack
 
-
-
-
-
+    elif player.health > 0 and monster.health <=0:
+        player.gain_xp(monster)             
